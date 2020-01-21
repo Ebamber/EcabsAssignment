@@ -1,6 +1,6 @@
 package org.ecabs.bookings.infrastructure.messagebroker;
 
-import org.ecabs.bookings.domain.Booking;
+import org.ecabs.bookings.domain.messagebroker.Booking;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.beans.factory.annotation.Autowired;

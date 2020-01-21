@@ -1,17 +1,15 @@
 package org.ecabs.bookings;
 
-import org.ecabs.bookings.domain.Booking;
-import org.ecabs.bookings.domain.TripWaypoint;
+import org.ecabs.bookings.domain.messagebroker.Booking;
+import org.ecabs.bookings.domain.messagebroker.TripWaypoint;
 import org.ecabs.bookings.infrastructure.messagebroker.BookingProducerService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
