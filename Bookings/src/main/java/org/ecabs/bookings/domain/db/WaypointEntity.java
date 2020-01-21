@@ -13,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name="waypoints")
 @ToString
+@Deprecated
 public class WaypointEntity {
 
     @Id

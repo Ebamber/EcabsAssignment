@@ -19,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Table(name="bookings")
 @ToString
+@Deprecated
 public class BookingEntity {
     @Id
     @Column(name="bookingId")

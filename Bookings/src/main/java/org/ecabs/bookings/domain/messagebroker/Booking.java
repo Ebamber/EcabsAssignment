@@ -1,6 +1,12 @@
 package org.ecabs.bookings.domain.messagebroker;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.joda.deser.DateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.key.OffsetDateTimeKeyDeserializer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +37,8 @@ public class Booking implements Serializable {
     private String passengerContactNumber;
 
     @Column(name="pickupTime")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss.SSSSSSx")
+    @JsonProperty("pickupTime")
     private OffsetDateTime pickupTime;
 
     @Column(name="asap")
@@ -49,12 +57,18 @@ public class Booking implements Serializable {
     private Integer rating;
 
     @Column(name="createdOn")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss.SSSSSSx")
+    @JsonProperty("createdOn")
     private Instant createdOn;
 
     @Column(name="lastModifiedOn")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss.SSSSSSx")
+    @JsonProperty("lastModifiedOn")
     private Instant lastModifiedOn;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "booking")
+    @JsonProperty("tripWayPoints")
     private List<TripWaypoint> tripWayPoints;
 
 }

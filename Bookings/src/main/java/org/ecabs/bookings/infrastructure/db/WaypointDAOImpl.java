@@ -19,7 +19,7 @@ public class WaypointDAOImpl implements WaypointDAO{
     @Override
     public List<TripWaypoint> getWaypointsByBooking(Booking booking) {
         Session session = this.sessionFactory.openSession();
-        List<TripWaypoint> waypointList = session.createQuery("from waypoints where bookingId = :bookingId").setParameter("bookingId", booking.getBookingId().toString()).list();
+        List<TripWaypoint> waypointList = session.createQuery("from TripWaypoint where bookingId = :bookingId").setParameter("bookingId", booking.getBookingId().toString()).list();
         session.close();
 
         //region deprecated, used to map DB to MQ objects

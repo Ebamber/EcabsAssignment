@@ -18,21 +18,29 @@ public class BookingConsumerService {
 
     @RabbitListener(queues = "${ecabs.message.booking.add}")
     public void BookingAddConsumer(Booking bookingEntity) {
+        System.out.println("EVENT CAME IN THE ADD QUEUE");
+        System.out.println(bookingEntity.toString());
         booking.insert(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.booking.delete}")
     public void BookingDeleteConsumer(Booking bookingEntity) {
+        System.out.println("EVENT CAME IN THE DELETE QUEUE");
+        System.out.println(bookingEntity.toString());
         booking.delete(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.booking.edit}")
     public void BookingEditConsumer(Booking bookingEntity) {
+        System.out.println("EVENT CAME IN THE EDIT QUEUE");
+        System.out.println(bookingEntity.toString());
         booking.update(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.audit}")
     public void MessageAuditConsumer(Booking bookingEntity) {
+        System.out.println("EVENT CAME IN THE AUDIT QUEUE");
+        System.out.println(bookingEntity.toString());
         audit.audit(bookingEntity.toString());
     }
 

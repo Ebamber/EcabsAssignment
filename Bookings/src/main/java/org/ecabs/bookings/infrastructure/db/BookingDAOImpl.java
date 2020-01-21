@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class BookingDAOImpl implements BookingDAO {
@@ -22,7 +23,7 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public List<Booking> getBooking() {
         Session session = this.sessionFactory.openSession();
-        List<Booking> bookingList = session.createQuery("from bookings").list();
+        List<Booking> bookingList = session.createQuery("from Booking").list();
         session.close();
 
         //region deprecated, used to map DB to MQ objects
@@ -45,7 +46,7 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public List<Booking> getBookingById(String bookingId) {
         Session session = this.sessionFactory.openSession();
-        List<Booking> bookingList = session.createQuery("from bookings where bookingId = :bookingId").setParameter("bookingId",bookingId).list();
+        List<Booking> bookingList = session.createQuery("from Booking where bookingId = :bookingId").setParameter("bookingId", UUID.fromString(bookingId)).list();
         bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
         session.close();
 

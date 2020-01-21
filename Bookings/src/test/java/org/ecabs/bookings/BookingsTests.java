@@ -33,6 +33,7 @@ public class BookingsTests {
 	@Before
 	public void init(){
 		List<TripWaypoint> waypoints = new ArrayList<>();
+
 		mockBooking = new Booking(UUID.randomUUID(),
 				"foo",
 				"21227244",
@@ -45,6 +46,16 @@ public class BookingsTests {
 				Instant.now(),
 				Instant.now(),
 				waypoints);
+		waypoints.add(
+				new TripWaypoint(
+						UUID.randomUUID(),
+						mockBooking,
+						true,
+						"Rabat",
+						1.0,
+						1.0,
+						Instant.now()));
+		mockBooking.setTripWayPoints(waypoints);
 	}
 
 	@Test

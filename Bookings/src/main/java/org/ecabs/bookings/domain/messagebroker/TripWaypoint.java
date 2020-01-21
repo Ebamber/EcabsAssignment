@@ -1,6 +1,11 @@
 package org.ecabs.bookings.domain.messagebroker;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.joda.deser.DateTimeDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -22,6 +27,7 @@ public class TripWaypoint implements Serializable {
     @Column(name="waypointId")
     private UUID waypointId;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="bookingId", nullable=false)
     private Booking booking;
@@ -39,6 +45,8 @@ public class TripWaypoint implements Serializable {
     private Double lng;
 
     @Column(name="timestamp")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss.SSSSSSx")
+    @JsonProperty("tripWaypointTimestamp")
     private Instant tripWayPointTimestamp;
 
 

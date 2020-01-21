@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class QueueController {
+@RequestMapping("/booking")
+public class BookingController {
 
     @Autowired
     BookingProducerService producer;
@@ -19,29 +20,29 @@ public class QueueController {
     BookingDAO booking;
 
 
-    @GetMapping("/ecabs/booking/")
+    @GetMapping
     public List<Booking> getAllBookings(){
         return booking.getBooking();
     }
 
-    @GetMapping("/ecabs/booking/{id}")
+    @GetMapping(path = "/{id}")
     public List<Booking> getBookingsByID(@PathVariable String id){
         return booking.getBookingById(id);
     }
 
-    @PostMapping("/ecabs/booking/add")
+    @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
     public Booking addBooking(@RequestBody Booking booking){
         producer.sendAdd(booking);
         return booking;
     }
 
-    @PatchMapping("/ecabs/booking/edit")
+    @PatchMapping(path = "/edit", consumes = "application/json", produces = "application/json")
     public Booking editBooking(@RequestBody Booking booking){
         producer.sendEdit(booking);
         return booking;
     }
 
-    @DeleteMapping("/ecabs/booking/delete")
+    @DeleteMapping(path = "/delete", consumes = "application/json", produces = "application/json")
     public Booking deleteBooking(@RequestBody Booking booking){
         producer.sendDelete(booking);
         return booking;
