@@ -3,10 +3,7 @@ package org.ecabs.bookings.domain.messagebroker;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -19,19 +16,45 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
+@Entity
+@Table(name="bookings")
 public class Booking implements Serializable {
 
+    @Id
+    @Column(name="bookingId")
     private UUID bookingId;
+
+    @Column(name="passengerName")
     private String passengerName;
+
+    @Column(name="passengerContactNumber")
     private String passengerContactNumber;
+
+    @Column(name="pickupTime")
     private OffsetDateTime pickupTime;
-    private boolean asap;
-    private int waitingTime;
-    private int noOfPassengers;
+
+    @Column(name="asap")
+    private Boolean asap;
+
+    @Column(name="waitingTime")
+    private Integer waitingTime;
+
+    @Column(name="noOfPassengers")
+    private Integer noOfPassengers;
+
+    @Column(name="price")
     private BigDecimal price;
-    private int rating;
+
+    @Column(name="rating")
+    private Integer rating;
+
+    @Column(name="createdOn")
     private Instant createdOn;
+
+    @Column(name="lastModifiedOn")
     private Instant lastModifiedOn;
+
+    @OneToMany(mappedBy = "bookingId")
     private List<TripWaypoint> tripWayPoints;
 
 }

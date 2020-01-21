@@ -19,6 +19,11 @@ public class WaypointDAOImpl implements WaypointDAO{
     @Override
     public List<TripWaypoint> getWaypointsByBooking(Booking booking) {
         Session session = this.sessionFactory.openSession();
+        List<TripWaypoint> waypointList = session.createQuery("from waypoints where bookingId = :bookingId").setParameter("bookingId", booking.getBookingId().toString()).list();
+        session.close();
+
+        //region deprecated, used to map DB to MQ objects
+        /*
         List<WaypointEntity> waypointResult = session.createQuery("from waypoints where bookingId = :bookingId").setParameter("bookingId",booking.getBookingId().toString()).list();
         session.close();
 
@@ -28,6 +33,9 @@ public class WaypointDAOImpl implements WaypointDAO{
                                             .collect(Collectors.toList());
 
         waypointList.forEach(waypoint -> waypoint.setBooking(booking));
+         */
+        //endregion
+
         return waypointList;
     }
 
@@ -35,7 +43,7 @@ public class WaypointDAOImpl implements WaypointDAO{
     public void insert(TripWaypoint waypoint) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(new WaypointEntity().fromTripWaypoint(waypoint));
+        session.persist(waypoint);
         transaction.commit();
         session.close();
     }
@@ -44,7 +52,7 @@ public class WaypointDAOImpl implements WaypointDAO{
     public void delete(TripWaypoint waypoint) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(new WaypointEntity().fromTripWaypoint(waypoint));
+        session.delete(waypoint);
         transaction.commit();
         session.close();
     }
@@ -53,7 +61,7 @@ public class WaypointDAOImpl implements WaypointDAO{
     public void update(TripWaypoint waypoint) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(new WaypointEntity().fromTripWaypoint(waypoint));
+        session.update(waypoint);
         transaction.commit();
         session.close();
     }

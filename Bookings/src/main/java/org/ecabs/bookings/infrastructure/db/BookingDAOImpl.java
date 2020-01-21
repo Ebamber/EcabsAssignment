@@ -2,6 +2,7 @@ package org.ecabs.bookings.infrastructure.db;
 
 import org.ecabs.bookings.domain.db.BookingEntity;
 import org.ecabs.bookings.domain.messagebroker.Booking;
+import org.ecabs.bookings.domain.messagebroker.TripWaypoint;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,6 +22,11 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public List<Booking> getBooking() {
         Session session = this.sessionFactory.openSession();
+        List<Booking> bookingList = session.createQuery("from bookings").list();
+        session.close();
+
+        //region deprecated, used to map DB to MQ objects
+        /*
         List<BookingEntity> bookingResult = session.createQuery("from bookings").list();
         session.close();
 
@@ -30,12 +36,21 @@ public class BookingDAOImpl implements BookingDAO {
                 .collect(Collectors.toList());
 
         bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
+        */
+        //endregion
+
         return bookingList;
     }
 
     @Override
     public List<Booking> getBookingById(String bookingId) {
         Session session = this.sessionFactory.openSession();
+        List<Booking> bookingList = session.createQuery("from bookings where bookingId = :bookingId").setParameter("bookingId",bookingId).list();
+        bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
+        session.close();
+
+        //region deprecated, used to map DB to MQ objects
+        /*
         List<BookingEntity> bookingResult = session.createQuery("from bookings where bookingId = :bookingId").setParameter("bookingId",bookingId).list();
         session.close();
 
@@ -45,6 +60,9 @@ public class BookingDAOImpl implements BookingDAO {
                                         .collect(Collectors.toList());
 
         bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
+        */
+        //endregion
+
         return bookingList;
     }
 
@@ -52,7 +70,7 @@ public class BookingDAOImpl implements BookingDAO {
     public void insert(Booking booking) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(new BookingEntity().fromBookingEvent(booking));
+        session.persist(booking);
         transaction.commit();
         session.close();
     }
@@ -61,7 +79,7 @@ public class BookingDAOImpl implements BookingDAO {
     public void delete(Booking booking) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(new BookingEntity().fromBookingEvent(booking));
+        session.delete(booking);
         transaction.commit();
         session.close();
     }
@@ -70,7 +88,7 @@ public class BookingDAOImpl implements BookingDAO {
     public void update(Booking booking) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(new BookingEntity().fromBookingEvent(booking));
+        session.update(booking);
         transaction.commit();
         session.close();
     }
