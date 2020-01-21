@@ -1,11 +1,10 @@
-package org.ecabs.bookings.application;
+package org.ecabs.bookings.application.rest;
 
-import org.ecabs.bookings.domain.Booking;
-import org.ecabs.bookings.infrastructure.db.HibernateWrapper;
-import org.ecabs.bookings.infrastructure.messagebroker.BookingConsumerService;
+import org.ecabs.bookings.domain.messagebroker.Booking;
+import org.ecabs.bookings.infrastructure.db.AuditDAO;
+import org.ecabs.bookings.infrastructure.db.BookingDAO;
 import org.ecabs.bookings.infrastructure.messagebroker.BookingProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +16,17 @@ public class QueueController {
     BookingProducerService producer;
 
     @Autowired
-    HibernateWrapper dbService;
+    BookingDAO booking;
+
 
     @GetMapping("/ecabs/booking/")
     public List<Booking> getAllBookings(){
-        return booking;
+        return booking.getBooking();
     }
 
     @GetMapping("/ecabs/booking/{id}")
-    public List<Booking> getBookingsByID(@PathVariable int id){
-        return booking;
+    public List<Booking> getBookingsByID(@PathVariable String id){
+        return booking.getBookingById(id);
     }
 
     @PostMapping("/ecabs/booking/add")

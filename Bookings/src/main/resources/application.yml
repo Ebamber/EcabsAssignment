@@ -10,11 +10,10 @@ ecabs:
 
 database:
   connection:
-    host: localhost
-    port: 3306
-    username: root
-    password: ebamber
-    type: TCP
+    username: sa
+    password:
+    url: jdbc:h2:mem:bookings
+    driver: org.h2.Driver
   name: bookings
   table:
     audit: audits
@@ -27,4 +26,8 @@ spring:
     port: 5672
     username: guest
     password: guest
+  h2:
+    console:
+      enabled: true
+      path: /h2
 

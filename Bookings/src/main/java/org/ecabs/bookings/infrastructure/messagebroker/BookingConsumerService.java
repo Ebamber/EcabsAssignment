@@ -1,28 +1,39 @@
 package org.ecabs.bookings.infrastructure.messagebroker;
 
+import org.ecabs.bookings.domain.messagebroker.Booking;
+import org.ecabs.bookings.infrastructure.db.AuditDAO;
+import org.ecabs.bookings.infrastructure.db.BookingDAO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookingConsumerService {
+
+    @Autowired
+    AuditDAO audit;
+
+    @Autowired
+    BookingDAO booking;
+
     @RabbitListener(queues = "${ecabs.message.booking.add}")
-    public void BookingAddConsumer(String in) {
-        System.out.println("Message read from myQueue : " + in);
+    public void BookingAddConsumer(Booking bookingEntity) {
+        booking.insert(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.booking.delete}")
-    public void BookingDeleteConsumer(String in) {
-        System.out.println("Message read from myQueue : " + in);
+    public void BookingDeleteConsumer(Booking bookingEntity) {
+        booking.delete(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.booking.edit}")
-    public void BookingEditConsumer(String in) {
-        System.out.println("Message read from myQueue : " + in);
+    public void BookingEditConsumer(Booking bookingEntity) {
+        booking.update(bookingEntity);
     }
 
     @RabbitListener(queues = "${ecabs.message.audit}")
-    public void MessageAuditConsumer(String in) {
-        System.out.println("Message read from myQueue : " + in);
+    public void MessageAuditConsumer(Booking bookingEntity) {
+        audit.audit(bookingEntity.toString());
     }
 
 }

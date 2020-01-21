@@ -1,4 +1,4 @@
-package org.ecabs.bookings.domain;
+package org.ecabs.bookings.domain.messagebroker;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
