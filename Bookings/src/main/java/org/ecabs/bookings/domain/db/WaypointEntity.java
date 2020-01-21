@@ -43,7 +43,7 @@ public class WaypointEntity {
 
     public Object fromTripWaypoint(TripWaypoint waypoint) {
         this.waypointId = waypoint.getWaypointId().toString();
-        this.lastStop = waypoint.isLastStop();
+        this.lastStop = waypoint.getLastStop();
         this.locality = waypoint.getLocality();
         this.latitude = waypoint.getLat();
         this.longitude = waypoint.getLng();

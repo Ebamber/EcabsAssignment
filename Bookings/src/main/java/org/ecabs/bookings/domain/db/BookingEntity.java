@@ -74,7 +74,7 @@ public class BookingEntity {
         this.passengerName = booking.getPassengerName();
         this.passengerContactNumber = booking.getPassengerContactNumber();
         this.pickupTime = booking.getPickupTime();
-        this.asap = booking.isAsap();
+        this.asap = booking.getAsap();
         this.waitingTime = booking.getWaitingTime();
         this.noOfPassengers = booking.getNoOfPassengers();
         this.price = booking.getPrice().doubleValue();

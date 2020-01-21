@@ -54,7 +54,7 @@ public class Booking implements Serializable {
     @Column(name="lastModifiedOn")
     private Instant lastModifiedOn;
 
-    @OneToMany(mappedBy = "bookingId")
+    @OneToMany(mappedBy = "booking")
     private List<TripWaypoint> tripWayPoints;
 
 }
