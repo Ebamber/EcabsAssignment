@@ -13,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name="waypoints")
 @ToString
+@Deprecated
 public class WaypointEntity {
 
     @Id
@@ -42,7 +43,7 @@ public class WaypointEntity {
     }
 
     public Object fromTripWaypoint(TripWaypoint waypoint) {
-        this.waypointId = waypoint.getTripWayPointId().toString();
+        this.waypointId = waypoint.getWaypointId().toString();
         this.lastStop = waypoint.getLastStop();
         this.locality = waypoint.getLocality();
         this.latitude = waypoint.getLat();

@@ -30,4 +30,8 @@ spring:
     console:
       enabled: true
       path: /h2
+  spring:
+    jackson:
+      serialization:
+        write-dates-as-timestamps: false
 

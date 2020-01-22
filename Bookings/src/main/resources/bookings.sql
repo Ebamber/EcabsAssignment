@@ -1,4 +1,4 @@
-CREATE TABLE bookings.bookings (
+CREATE TABLE bookings (
   bookingId varchar(255) NOT NULL,
   passengerName varchar(255) DEFAULT NULL,
   passengerContactNumber varchar(255) DEFAULT NULL,
@@ -16,5 +16,5 @@ ENGINE = INNODB,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
-ALTER TABLE bookings.bookings
+ALTER TABLE bookings
 ADD UNIQUE INDEX UK_bookings_bookingId (bookingId);
