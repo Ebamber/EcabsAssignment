@@ -23,22 +23,8 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public List<Booking> getBooking() {
         Session session = this.sessionFactory.openSession();
-        List<Booking> bookingList = session.createQuery("from Booking").list();
+        List<Booking> bookingList = session.createQuery("SELECT b FROM Booking b", Booking.class).getResultList();
         session.close();
-
-        //region deprecated, used to map DB to MQ objects
-        /*
-        List<BookingEntity> bookingResult = session.createQuery("from bookings").list();
-        session.close();
-
-        List<Booking> bookingList = bookingResult
-                .parallelStream()
-                .map(BookingEntity::toBookingEvent)
-                .collect(Collectors.toList());
-
-        bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
-        */
-        //endregion
 
         return bookingList;
     }
@@ -50,20 +36,6 @@ public class BookingDAOImpl implements BookingDAO {
         bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
         session.close();
 
-        //region deprecated, used to map DB to MQ objects
-        /*
-        List<BookingEntity> bookingResult = session.createQuery("from bookings where bookingId = :bookingId").setParameter("bookingId",bookingId).list();
-        session.close();
-
-        List<Booking> bookingList = bookingResult
-                                        .parallelStream()
-                                        .map(BookingEntity::toBookingEvent)
-                                        .collect(Collectors.toList());
-
-        bookingList.forEach(booking -> booking.setTripWayPoints(waypointDAO.getWaypointsByBooking(booking)));
-        */
-        //endregion
-
         return bookingList;
     }
 
@@ -72,8 +44,10 @@ public class BookingDAOImpl implements BookingDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(booking);
+        booking.getTripWayPoints().forEach(waypoint -> session.persist(waypoint));
         transaction.commit();
         session.close();
+
     }
 
     @Override
@@ -81,8 +55,10 @@ public class BookingDAOImpl implements BookingDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(booking);
+        booking.getTripWayPoints().forEach(waypoint -> session.delete(waypoint));
         transaction.commit();
         session.close();
+
     }
 
     @Override
@@ -90,7 +66,9 @@ public class BookingDAOImpl implements BookingDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(booking);
+        booking.getTripWayPoints().forEach(waypoint -> session.update(waypoint));
         transaction.commit();
         session.close();
+
     }
 }

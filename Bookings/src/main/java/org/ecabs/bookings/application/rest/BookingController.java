@@ -30,19 +30,19 @@ public class BookingController {
         return booking.getBookingById(id);
     }
 
-    @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = {"application/json"}, produces = "application/json")
     public Booking addBooking(@RequestBody Booking booking){
         producer.sendAdd(booking);
         return booking;
     }
 
-    @PatchMapping(path = "/edit", consumes = "application/json", produces = "application/json")
+    @PatchMapping(consumes = "application/json", produces = "application/json")
     public Booking editBooking(@RequestBody Booking booking){
         producer.sendEdit(booking);
         return booking;
     }
 
-    @DeleteMapping(path = "/delete", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(consumes = "application/json", produces = "application/json")
     public Booking deleteBooking(@RequestBody Booking booking){
         producer.sendDelete(booking);
         return booking;

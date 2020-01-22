@@ -71,6 +71,11 @@ public class QueueConfig {
     }
 
     @Bean
+    public Binding exchangeBinding(DirectExchange bookingExchange, FanoutExchange messageExchange){
+        return BindingBuilder.bind(bookingExchange).to(messageExchange);
+    }
+
+    @Bean
     public FanoutExchange messageExchange() {
         return new FanoutExchange(messageExchange);
     }
