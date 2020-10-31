@@ -1,0 +1,40 @@
+ecabs:
+  message:
+    exchange: MessageExchange
+    booking:
+      edit: BookingEditQueue
+      delete: BookingDeleteQueue
+      add: BookingAddQueue
+      exchange: BookingExchange
+    audit: MessageAuditQueue
+
+database:
+  connection:
+    username: sa
+    password:
+    url: jdbc:h2:~/bookings
+    driver: org.h2.Driver
+  name: bookings
+  table:
+    audit: audits
+    booking: bookings
+    waypoint: waypoints
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  rabbitmq:
+    virtual-host: dev
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  spring:
+    jackson:
+      serialization:
+        write-dates-as-timestamps: false

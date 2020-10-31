@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "ea8a7925-e72e-4a5b-9fdf-8aeba1158588",
+		"name": "Bookings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ADD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"passengerName\": \"bar\",\r\n    \"pickupTime\": \"2021-01-23 22:04:20\",\r\n    \"price\": 10,\r\n    \"rating\": 0,\r\n    \"waitingTime\": 0,\r\n    \"passengerContactNumber\": \"79954008\",\r\n    \"noOfPassengers\": 0,\r\n    \"asap\": true,\r\n    \"createdOn\": \"2021-01-23 21:04:20\",\r\n    \"tripWayPoints\": [{\r\n        \"waypointId\": \"31a23ebe-c4ad-4ead-b31e-7aa0bf514c18\",\r\n        \"lng\": 1,\r\n        \"locality\": \"Swieqi\",\r\n        \"lastStop\": true,\r\n        \"tripWayPointTimestamp\": \"2021-01-23 21:04:20\",\r\n        \"lat\": 1\r\n    }],\r\n    \"bookingId\": \"322227ad-a211-49d5-845d-a249589b1ecd\",\r\n    \"lastModifiedOn\": \"2021-01-23 21:04:20\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"passengerName\": \"bar\",\r\n    \"pickupTime\": \"2021-01-23 22:04:20\",\r\n    \"price\": 10,\r\n    \"rating\": 0,\r\n    \"waitingTime\": 0,\r\n    \"passengerContactNumber\": \"799540\",\r\n    \"noOfPassengers\": 0,\r\n    \"asap\": true,\r\n    \"createdOn\": \"2021-01-23 21:04:20\",\r\n    \"tripWayPoints\": [{\r\n        \"waypointId\": \"31a23ebe-c4ad-4ead-b31e-7aa0bf514c18\",\r\n        \"lng\": 1,\r\n        \"locality\": \"Attard\",\r\n        \"lastStop\": true,\r\n        \"tripWayPointTimestamp\": \"2021-01-23 21:04:20\",\r\n        \"lat\": 1\r\n    }],\r\n    \"bookingId\": \"322227ad-a211-49d5-845d-a249589b1ecd\",\r\n    \"lastModifiedOn\": \"2021-01-23 21:04:20\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"322227ad-a211-49d5-845d-a249589b1ecd\""
+				},
+				"url": {
+					"raw": "http://localhost:8081/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/booking/322227ad-a211-49d5-845d-a249589b1ecd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"booking",
+						"322227ad-a211-49d5-845d-a249589b1ecd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/booking/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"booking",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
